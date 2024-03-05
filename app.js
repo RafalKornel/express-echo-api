@@ -14,8 +14,6 @@ app.listen(port, ip, function () {
 });
 
 var reqData = function (req) {
-  debugger;
-
   const params = ["method", "hostname", "path", "query", "headers", "body"];
   return params.reduce((accumulator, currentValue) => {
     accumulator[currentValue] = req[currentValue];
@@ -24,18 +22,16 @@ var reqData = function (req) {
 };
 
 app.all("*", function (req, res) {
-
-  console.log(req.params);
-  console.log(req.params.dictionary);
-  console.log(req.body);
   res.set("Content-Type", "application/json");
   res.set("Access-Control-Allow-Origin", "*");
+
   var response = reqData(req);
 
   var stringifiedResponse = JSON.stringify(response, null, 2);
+
   console.log(stringifiedResponse);
 
-  res.status(200).send(stringifiedResponse);
+  res.status(200).send("");
 });
 
 module.exports = app;
